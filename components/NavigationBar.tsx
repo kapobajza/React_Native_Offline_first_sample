@@ -18,7 +18,7 @@ const NavigationBar = ({ title }: { title: string }) => {
 
           return (
             <View style={!isConnected ? [styles.header, styles.headerOffline] : styles.header}>
-              <SafeAreaView>
+              <SafeAreaView edges={['left', 'right', 'top']}>
                 {!isConnected ? (
                   <View style={styles.noInternetContent}>
                     <Text style={styles.noInternetText}>No internet connection</Text>
