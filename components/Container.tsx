@@ -1,10 +1,11 @@
-import { StyleSheet, View, ViewProps } from 'react-native';
+import { StyleSheet, ViewProps } from 'react-native';
 import React from 'react';
+import { SafeAreaView, SafeAreaViewProps } from 'react-native-safe-area-context';
 
 type Props = {
   center?: boolean;
   flex?: boolean;
-} & ViewProps;
+} & SafeAreaViewProps;
 
 const Container = ({ center, style, flex, ...props }: Props) => {
   const componentStyle = [StyleSheet.flatten(style)];
@@ -17,7 +18,7 @@ const Container = ({ center, style, flex, ...props }: Props) => {
     componentStyle.push(styles.flex);
   }
 
-  return <View style={componentStyle} {...props} />;
+  return <SafeAreaView style={componentStyle} edges={['bottom', 'left', 'right']} {...props} />;
 };
 
 export default Container;

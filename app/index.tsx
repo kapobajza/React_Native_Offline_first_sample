@@ -1,7 +1,8 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { apiClient } from '../api';
 import { Container, FlatList, NavigationBar, Spacer } from '../components';
 import { todoQueryKey } from '../query';
@@ -16,6 +17,7 @@ export default function Todos() {
       return data;
     },
   });
+  const { bottom } = useSafeAreaInsets();
 
   const renderItem = ({ item }: { item: Todo }) => {
     return (
@@ -49,7 +51,7 @@ export default function Todos() {
         renderItem={renderItem}
         ListHeaderComponent={<Spacer />}
       />
-      <Pressable style={styles.addButton} onPress={() => router.push('/todo/add')}>
+      <Pressable style={[styles.addButton, { bottom: bottom + 16 }]} onPress={() => router.push('/todo/add')}>
         <FontAwesome name="plus" style={styles.addIcon} size={20} />
       </Pressable>
     </Container>
@@ -79,8 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     borderRadius: 9999,
     position: 'absolute',
-    bottom: 16,
-    right: 8,
+    right: Platform.select({ ios: 16, android: 8 }),
     width: 48,
     height: 48,
     alignItems: 'center',

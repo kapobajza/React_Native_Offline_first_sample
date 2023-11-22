@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { Button, ButtonText, Container, NavigationBar } from '../../components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -84,7 +84,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: 'lightgray',
-    padding: 8,
+    padding: Platform.select({
+      ios: 16,
+      android: 8,
+    }),
+    paddingTop: Platform.select({
+      ios: 16,
+      android: 8,
+    }),
     maxHeight: 120,
     marginBottom: 24,
   },
